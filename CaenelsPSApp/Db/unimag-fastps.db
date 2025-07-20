@@ -6,10 +6,10 @@
 # Aliases for current and voltage
 # =================================================
 
-alias("$(P)$(R)OutputCurrent","$(P)$(R)current_rb")
-alias("$(P)$(R)OutputVoltage","$(P)$(R)voltage_rb")
-alias("$(P)$(R)Current","$(P)$(R)current")
-alias("$(P)$(R)Voltage","$(P)$(R)voltage")
+alias("$(P)$(R)OutputCurrent","$(P)$(R)CURRENT_RB")
+alias("$(P)$(R)OutputVoltage","$(P)$(R)VOLTAGE_RB")
+alias("$(P)$(R)Current","$(P)$(R)CURRENT_SP")
+alias("$(P)$(R)Voltage","$(P)$(R)VOLTAGE_SP")
 
 record(event, "$(P)$(R):unimagscan")
 {
