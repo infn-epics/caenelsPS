@@ -6,9 +6,9 @@
 # Aliases for current and voltage
 # =================================================
 
-alias("$(P)$(R)OutputCurrent","$(P)$(R)current_rb")
-alias("$(P)$(R)OutputVoltage","$(P)$(R)voltage_rb")
-alias("$(P)$(R)Current","$(P)$(R)current")
+alias("$(P)$(R)OutputCurrent","$(P)$(R)CURRENT_RB")
+alias("$(P)$(R)OutputVoltage","$(P)$(R)VOLTAGE_RB")
+alias("$(P)$(R)Current","$(P)$(R)CURRENT_SP")
 
 record(event, "$(P)$(R):unimagscan")
 {
@@ -79,11 +79,11 @@ record(calcout, "$(P)$(R)state_calc") {
     field(INPE, "$(P)$(R)DCunderV")
     field(INPF, "$(P)$(R)ExternalInterlock1")
     field(CALC, "A=0?0:(F=1?4:(B||C||D||E)?5:1)")
-    field(OUT, "$(P)$(R)state_rb PP")
+    field(OUT, "$(P)$(R)STATE_RB PP")
     field(OOPT, "Every Time")
 }
 
-record(mbbi, "$(P)$(R)state_rb") {
+record(mbbi, "$(P)$(R)STATE_RB") {
     field(DESC, "State readback")
     field(SCAN,"Passive")
     field(ZRVL, "0")
@@ -104,7 +104,7 @@ record(mbbi, "$(P)$(R)state_rb") {
 
 ##
 ## State setpoint
-record(mbbo, "$(P)$(R)state") {
+record(mbbo, "$(P)$(R)STATE_SP") {
     field(DESC, "State setpoint")
     field(ZRVL, "0")
     field(ZRST, "OFF")
@@ -124,7 +124,7 @@ record(mbbo, "$(P)$(R)state") {
 # Map state to Enable
 record(calcout, "$(P)$(R)state_to_enable") {
     field(DESC, "Map state to Enable")
-    field(INPA, "$(P)$(R)state")
+    field(INPA, "$(P)$(R)STATE_SP")
     field(CALC, "A=1?1:(A=2||A==0)?0:1")
     field(OUT, "$(P)$(R)Enable PP")
     field(OOPT, "Every Time")
@@ -133,7 +133,7 @@ record(calcout, "$(P)$(R)state_to_enable") {
 # Map state to Reset
 record(calcout, "$(P)$(R)state_to_reset") {
     field(DESC, "Map state to Reset")
-    field(INPA, "$(P)$(R)state")
+    field(INPA, "$(P)$(R)STATE_SP")
     field(CALC, "A=3?1:0")
     field(OUT, "$(P)$(R)StatusReset PP")
     field(OOPT, "Every Time")
