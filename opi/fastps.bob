@@ -64,7 +64,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text_up_model</name>
-    <pv_name>$(P):$(R):Model</pv_name>
+    <pv_name>$(P)$(R)Model</pv_name>
     <x>118</x>
     <y>66</y>
     <background_color>
@@ -99,7 +99,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text_up_version</name>
-    <pv_name>$(P):$(R):Version</pv_name>
+    <pv_name>$(P)$(R)Version</pv_name>
     <x>117</x>
     <y>90</y>
     <background_color>
@@ -134,7 +134,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text_up_module_id</name>
-    <pv_name>$(P):$(R):ModuleID</pv_name>
+    <pv_name>$(P)$(R)ModuleID</pv_name>
     <x>338</x>
     <y>66</y>
     <background_color>
@@ -169,7 +169,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text_up_limitI</name>
-    <pv_name>$(P):$(R):rangeI</pv_name>
+    <pv_name>$(P)$(R)rangeI</pv_name>
     <x>117</x>
     <y>114</y>
     <width>45</width>
@@ -188,7 +188,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text_up_limitV</name>
-    <pv_name>$(P):$(R):rangeV</pv_name>
+    <pv_name>$(P)$(R)rangeV</pv_name>
     <x>172</x>
     <y>114</y>
     <width>45</width>
@@ -226,7 +226,7 @@
   </widget>
   <widget type="slide_button" version="2.0.0">
     <name>switch_enable</name>
-    <pv_name>$(P):$(R):Enable</pv_name>
+    <pv_name>$(P)$(R)Enable</pv_name>
     <bit>-1</bit>
     <x>66</x>
     <y>160</y>
@@ -257,7 +257,7 @@
   </widget>
   <widget type="choice" version="2.0.0">
     <name>choice_reg_mode</name>
-    <pv_name>$(P):$(R):RegulationMode</pv_name>
+    <pv_name>$(P)$(R)RegulationMode</pv_name>
     <x>117</x>
     <y>179</y>
     <height>41</height>
@@ -276,7 +276,7 @@
         <exp bool_exp="pv0">
           <value>false</value>
         </exp>
-        <pv_name>$(P):$(R):Enable</pv_name>
+        <pv_name>$(P)$(R)Enable</pv_name>
       </rule>
     </rules>
     <items>
@@ -305,7 +305,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text_in_slew_rate_i</name>
-    <pv_name>$(P):$(R):SlewRateI</pv_name>
+    <pv_name>$(P)$(R)SlewRateI</pv_name>
     <x>210</x>
     <y>228</y>
     <width>70</width>
@@ -325,7 +325,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text_up_slew_rate_i_rb</name>
-    <pv_name>$(P):$(R):SlewRateIRB</pv_name>
+    <pv_name>$(P)$(R)SlewRateIRB</pv_name>
     <x>285</x>
     <y>228</y>
     <width>70</width>
@@ -360,7 +360,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text_in_slew_rate_v</name>
-    <pv_name>$(P):$(R):SlewRateV</pv_name>
+    <pv_name>$(P)$(R)SlewRateV</pv_name>
     <x>210</x>
     <y>252</y>
     <width>70</width>
@@ -380,7 +380,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text_up_slew_rate_v_rb</name>
-    <pv_name>$(P):$(R):SlewRateVRB</pv_name>
+    <pv_name>$(P)$(R)SlewRateVRB</pv_name>
     <x>285</x>
     <y>252</y>
     <width>70</width>
@@ -408,7 +408,7 @@
         <children>
           <widget type="scaledslider" version="2.0.0">
             <name>slider_voltage</name>
-            <pv_name>$(P):$(R):Voltage</pv_name>
+            <pv_name>$(P)$(R)Voltage</pv_name>
             <x>12</x>
             <y>6</y>
             <width>216</width>
@@ -429,7 +429,7 @@
           </widget>
           <widget type="textentry" version="3.0.0">
             <name>text_in_voltage</name>
-            <pv_name>$(P):$(R):Voltage</pv_name>
+            <pv_name>$(P)$(R)Voltage</pv_name>
             <x>12</x>
             <y>6</y>
             <height>25</height>
@@ -453,7 +453,7 @@
         <children>
           <widget type="scaledslider" version="2.0.0">
             <name>slider_current</name>
-            <pv_name>$(P):$(R):Current</pv_name>
+            <pv_name>$(P)$(R)Current</pv_name>
             <x>12</x>
             <y>6</y>
             <width>216</width>
@@ -474,7 +474,7 @@
           </widget>
           <widget type="textentry" version="3.0.0">
             <name>text_in_current</name>
-            <pv_name>$(P):$(R):Current</pv_name>
+            <pv_name>$(P)$(R)Current</pv_name>
             <x>12</x>
             <y>6</y>
             <height>25</height>
@@ -510,7 +510,7 @@
         <exp bool_exp="pv0 == 1">
           <value>1</value>
         </exp>
-        <pv_name>$(P):$(R):RegulationMode</pv_name>
+        <pv_name>$(P)$(R)RegulationMode</pv_name>
       </rule>
     </rules>
   </widget>
@@ -535,7 +535,7 @@
   </widget>
   <widget type="meter" version="3.0.0">
     <name>meter_output_voltage</name>
-    <pv_name>$(P):$(R):OutputVoltage</pv_name>
+    <pv_name>$(P)$(R)OutputVoltage</pv_name>
     <x>36</x>
     <y>300</y>
     <width>200</width>
@@ -567,7 +567,7 @@
   </widget>
   <widget type="meter" version="3.0.0">
     <name>meter_output_current</name>
-    <pv_name>$(P):$(R):OutputCurrent</pv_name>
+    <pv_name>$(P)$(R)OutputCurrent</pv_name>
     <x>258</x>
     <y>300</y>
     <width>200</width>
@@ -604,7 +604,7 @@
     <actions>
       <action type="write_pv">
         <description>Reset Status Register</description>
-        <pv_name>$(P):$(R):StatusReset.PROC</pv_name>
+        <pv_name>$(P)$(R)StatusReset.PROC</pv_name>
         <value>1</value>
       </action>
     </actions>
@@ -622,7 +622,7 @@
   <!-- LSB byte monitor + labels -->
   <widget type="byte_monitor" version="2.0.0">
     <name>mon_status_lsb</name>
-    <pv_name>$(P):$(R):StatusLSB</pv_name>
+    <pv_name>$(P)$(R)StatusLSB</pv_name>
     <x>256</x>
     <y>419</y>
     <width>20</width>
@@ -887,7 +887,7 @@
   <!-- MSB byte monitor + labels -->
   <widget type="byte_monitor" version="2.0.0">
     <name>mon_status_msb</name>
-    <pv_name>$(P):$(R):StatusMSB</pv_name>
+    <pv_name>$(P)$(R)StatusMSB</pv_name>
     <x>45</x>
     <y>419</y>
     <width>20</width>
@@ -1175,7 +1175,7 @@
     </actions>
     <widget type="textupdate" version="2.0.0">
       <name>text_up_dc_link</name>
-      <pv_name>$(P):$(R):DCLinkVoltage</pv_name>
+      <pv_name>$(P)$(R)DCLinkVoltage</pv_name>
       <x>2</x>
       <y>19</y>
       <width>84</width>
@@ -1229,7 +1229,7 @@
     </actions>
     <widget type="textupdate" version="2.0.0">
       <name>text_up_heatsink_temp</name>
-      <pv_name>$(P):$(R):HeatsinkTemp</pv_name>
+      <pv_name>$(P)$(R)HeatsinkTemp</pv_name>
       <x>2</x>
       <y>19</y>
       <width>84</width>
@@ -1283,7 +1283,7 @@
     </actions>
     <widget type="textupdate" version="2.0.0">
       <name>text_up_ground_current</name>
-      <pv_name>$(P):$(R):GroundCurrent</pv_name>
+      <pv_name>$(P)$(R)GroundCurrent</pv_name>
       <x>2</x>
       <y>19</y>
       <width>84</width>
@@ -1337,7 +1337,7 @@
     </actions>
     <widget type="textupdate" version="2.0.0">
       <name>text_up_output_power</name>
-      <pv_name>$(P):$(R):OutputPower</pv_name>
+      <pv_name>$(P)$(R)OutputPower</pv_name>
       <x>2</x>
       <y>19</y>
       <width>84</width>
@@ -1391,7 +1391,7 @@
     </actions>
     <widget type="combo" version="2.0.0">
       <name>combo_scan_period</name>
-      <pv_name>$(P):$(R):ReadbackPoll_.SCAN</pv_name>
+      <pv_name>$(P)$(R)ReadbackPoll_.SCAN</pv_name>
       <y>15</y>
       <width>88</width>
       <height>29</height>
