@@ -17,7 +17,7 @@ CaenelsPS_registerRecordDeviceDriver(pdbbase)
 drvAsynIPPortConfigure("L0","192.168.0.123:10001",0,0,0)
 
 ## Load record instances
-dbLoadRecords("db/fastps.db", "P=$(P),R=$(R),PORT=L0,RANGEI=30,RANGEV=20")
+dbLoadRecords("db/fastps.db", "P=$(P),R=$(R),PORT=L0,RANGEI=30,RANGEV=20,RAMPI=0,RAMPV=0")
 dbLoadRecords("db/unimag-fastps.db", "P=$(P),R=$(R),PORT=L0")
 
 cd "${TOP}/iocBoot/${IOC}"
