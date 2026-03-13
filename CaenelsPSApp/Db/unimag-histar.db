@@ -139,8 +139,8 @@ record(calcout, "$(P)$(R)state_to_enable") {
     field(CALC, "A=1?1:(A=2||A==0)?0:1")
     field(OUT, "$(P)$(R)Enable PP")
     field(OOPT, "Every Time")
+    field(FLNK, "$(P)$(R)state_to_reset")
 }
-
 
 # Map state to Reset
 record(calcout, "$(P)$(R)state_to_reset") {

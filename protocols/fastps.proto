@@ -54,6 +54,8 @@ getVersion {
 }
 
 ################################################################################
+# Basic commands
+################################################################################
 
 setEnable {
     out "%{MOFF|MON}";
@@ -69,15 +71,43 @@ setRegulationMode {
     };
 }
 
+setUpdateMode {
+    out "UPMODE:%{NORMAL|ANALOG}";
+    in "#AK";
+    @init {
+        out "UPMODE:?";
+        in "#UPMODE:%{NORMAL|ANALOG}";
+    };
+}
+
+setFloatMode {
+    out "SETFLOAT:%{N|F}";
+    in "#AK";
+    @init {
+        out "SETFLOAT:?";
+        in "#SETFLOAT:%{N|F}";
+    };
+}
+
 # the commands are MWV (go to setpt without ramp) and MWVR (ramp)
 setVoltage {
-    out "MWV%(\$1RampEnable){|R}:%f";
+    out "MWV:%f";
+    in "#AK";
+}
+
+setVoltageRamp {
+    out "MWVR:%f";
     in "#AK";
 }
 
 # the commands are MWI (go to setpt without ramp) and MWIR (ramp)
 setCurrent {
-    out "MWI%(\$1RampEnable){|R}:%f";
+    out "MWI:%f";
+    in "#AK";
+}
+
+setCurrentRamp {
+    out "MWIR:%f";
     in "#AK";
 }
 
@@ -86,6 +116,64 @@ resetStatus {
     in "#AK";
 }
 
+################################################################################
+# Slew rate commands (A/s and V/s)
+################################################################################
+
+setSlewRateI {
+    out "MSRI:%f";
+    in "#AK";
+}
+
+getSlewRateI {
+    out "MSRI:?";
+    in "#MSRI:%f";
+    @init {
+        out "MSRI:?";
+        in "#MSRI:%f";
+    };
+}
+
+setSlewRateV {
+    out "MSRV:%f";
+    in "#AK";
+}
+
+getSlewRateV {
+    out "MSRV:?";
+    in "#MSRV:%f";
+    @init {
+        out "MSRV:?";
+        in "#MSRV:%f";
+    };
+}
+
+################################################################################
+# Setpoint readback
+################################################################################
+
+getSetpointI {
+    out "MWI:?";
+    in "#MWI:%f";
+}
+
+getSetpointV {
+    out "MWV:?";
+    in "#MWV:%f";
+}
+
+getRampSetpointI {
+    out "MWIR:?";
+    in "#MWIR:%f";
+}
+
+getRampSetpointV {
+    out "MWVR:?";
+    in "#MWVR:%f";
+}
+
+################################################################################
+# Readback commands
 ################################################################################
 
 getOutputVoltage {
@@ -113,6 +201,24 @@ getTemperature {
     in "#MRT:%f";
 }
 
+getOutputPower {
+    out "MRW";
+    in "#MRW:%f";
+}
+
+getModuleID {
+    out "MRID";
+    in "#MRID:%s";
+    @init {
+        out "MRID";
+        in "#MRID:%s";
+    };
+}
+
+################################################################################
+# Status register
+################################################################################
+
 getStatusMSB {
     out "MST";
     in "#MST:%4x%*4x";
@@ -125,4 +231,67 @@ getStatusLSB {
         out "MST";
         in "#MST:%*4x%4x";
     }
+}
+
+################################################################################
+# Solid state relay (MSIG / MSIGPU)
+################################################################################
+
+setSolidStateRelay {
+    out "MSIG:%{0|1}";
+    in "#AK";
+    @init {
+        out "MSIG:?";
+        in "#MSIG:%{0|1}";
+    };
+}
+
+setSolidStateRelayPU {
+    out "MSIGPU:%d";
+    in "#AK";
+    @init {
+        out "MSIGPU:?";
+        in "#MSIGPU:%d";
+    };
+}
+
+################################################################################
+# Configuration commands (MRG/MWG)
+################################################################################
+
+getParamField {
+    out "MRG:%(\$1.VAL)d";
+    in "#MRG:%*d:%f";
+}
+
+setParamField {
+    out "MWG:%(\$1.VAL)d:%f";
+    in "#AK";
+}
+
+################################################################################
+# Persistent switch (FAST-PS-1K5 only)
+################################################################################
+
+setPersistentSwitch {
+    out "SETPS:%{0|1}";
+    in "#AK";
+}
+
+################################################################################
+# Memory save
+################################################################################
+
+saveParams {
+    out "MSAVE";
+    in "#AK";
+}
+
+################################################################################
+# Hardware reset
+################################################################################
+
+hwReset {
+    out "HWRESET";
+    in "#AK";
 }

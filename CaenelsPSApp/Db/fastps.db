@@ -21,7 +21,7 @@ record(fanout, "$(P)$(R)CalcFanoutI")
     field(LNK2, "$(P)$(R)LimitMaxI")
     field(LNK3, "$(P)$(R)LimitMaxOutputCurrent_")
     field(LNK4, "$(P)$(R)LimitMinOutputCurrent_")
-
+    field(LNK5, "$(P)$(R)SlewRateICalc_")
 }
 record(fanout, "$(P)$(R)CalcFanoutV")
 {
@@ -29,7 +29,7 @@ record(fanout, "$(P)$(R)CalcFanoutV")
     field(LNK2, "$(P)$(R)LimitMaxV")
     field(LNK3, "$(P)$(R)LimitMaxOutputVoltage_")
     field(LNK4, "$(P)$(R)LimitMinOutputVoltage_")
-
+    field(LNK5, "$(P)$(R)SlewRateVCalc_")
 }
 record (calcout, "$(P)$(R)LimitMinI")
 {
@@ -95,6 +95,72 @@ record (calcout, "$(P)$(R)LimitMinOutputVoltage_")
 
 
 
+################################################################################
+# Slew rate set/readback
+################################################################################
+
+record(calcout, "$(P)$(R)SlewRateICalc_")
+{
+    field(DESC, "Compute default current slew rate")
+    field(INPA, "$(P)$(R)rangeI")
+    field(B, "$(RAMPI=0)")
+    field(CALC, "B>0?B:A*0.1")
+    field(OUT,  "$(P)$(R)SlewRateI PP")
+}
+
+record(ao, "$(P)$(R)SlewRateI")
+{
+    field(DESC, "Current slew rate")
+    field(DTYP, "stream")
+    field(EGU,  "A/s")
+    field(OUT,  "@fastps.proto setSlewRateI $(PORT)")
+    field(PREC, "3")
+    field(PINI, "YES")
+}
+
+record(ai, "$(P)$(R)SlewRateIRB")
+{
+    field(DESC, "Current slew rate readback")
+    field(DTYP, "stream")
+    field(EGU,  "A/s")
+    field(INP,  "@fastps.proto getSlewRateI $(PORT)")
+    field(FLNK, "$(P)$(R)SlewRateVRB")
+    field(PREC, "3")
+}
+
+record(calcout, "$(P)$(R)SlewRateVCalc_")
+{
+    field(DESC, "Compute default voltage slew rate")
+    field(INPA, "$(P)$(R)rangeV")
+    field(B, "$(RAMPV=0)")
+    field(CALC, "B>0?B:A*0.1")
+    field(OUT,  "$(P)$(R)SlewRateV PP")
+}
+
+record(ao, "$(P)$(R)SlewRateV")
+{
+    field(DESC, "Voltage slew rate")
+    field(DTYP, "stream")
+    field(EGU,  "V/s")
+    field(OUT,  "@fastps.proto setSlewRateV $(PORT)")
+    field(PREC, "3")
+    field(PINI, "YES")
+}
+
+record(ai, "$(P)$(R)SlewRateVRB")
+{
+    field(DESC, "Voltage slew rate readback")
+    field(DTYP, "stream")
+    field(EGU,  "V/s")
+    field(INP,  "@fastps.proto getSlewRateV $(PORT)")
+    field(FLNK, "$(P)$(R)StatusMSB")
+    field(PREC, "3")
+}
+
+################################################################################
+# Control
+################################################################################
+
 record(bo, "$(P)$(R)RegulationMode")
 {
     field(DESC, "Selects between voltage/current reg")
@@ -108,20 +174,40 @@ record(bo, "$(P)$(R)RegulationMode")
 
 record(ao, "$(P)$(R)Voltage")
 {
-    field(DESC, "Voltage control (in V reg mode)")
+    field(DESC, "Voltage control")
     field(DTYP, "stream")
     field(EGU,  "V")
-    field(OUT,  "@fastps.proto setVoltage($(P)$(R)) $(PORT)")
+    field(OUT,  "@fastps.proto setVoltageRamp $(PORT)")
     field(PREC, "5")
 }
 
 record(ao, "$(P)$(R)Current")
 {
-    field(DESC, "Current control (in V reg mode)")
+    field(DESC, "Current control")
     field(DTYP, "stream")
     field(EGU,  "A")
-    field(OUT,  "@fastps.proto setCurrent($(P)$(R)) $(PORT)")
+    field(OUT,  "@fastps.proto setCurrentRamp $(PORT)")
     field(PREC, "5")
+}
+
+record(bo, "$(P)$(R)UpdateMode")
+{
+    field(DESC, "Update mode (Normal/Analog)")
+    field(DTYP, "stream")
+    field(OUT,  "@fastps.proto setUpdateMode $(PORT)")
+    field(PINI, "YES")
+    field(ZNAM, "Normal")
+    field(ONAM, "Analog")
+}
+
+record(bo, "$(P)$(R)FloatMode")
+{
+    field(DESC, "Floating output mode")
+    field(DTYP, "stream")
+    field(OUT,  "@fastps.proto setFloatMode $(PORT)")
+    field(PINI, "YES")
+    field(ZNAM, "Grounded")
+    field(ONAM, "Floating")
 }
 
 record(bo, "$(P)$(R)StatusReset")
@@ -131,13 +217,22 @@ record(bo, "$(P)$(R)StatusReset")
     field(OUT,  "@fastps.proto resetStatus $(PORT)")
 }
 
-record(bo, "$(P)$(R)RampEnable")
+record(bo, "$(P)$(R)SaveParams")
 {
-    field(DESC, "Enables/disables ramping to setpoint")
-    field(ZNAM, "Off")
-    field(ONAM, "On")
-    field(DOL,  "0")
-    field(PINI, "YES")
+    field(DESC, "Save config to non-volatile memory")
+    field(DTYP, "stream")
+    field(OUT,  "@fastps.proto saveParams $(PORT)")
+    field(ZNAM, "Idle")
+    field(ONAM, "Save")
+}
+
+record(bo, "$(P)$(R)HWReset")
+{
+    field(DESC, "Hardware reset")
+    field(DTYP, "stream")
+    field(OUT,  "@fastps.proto hwReset $(PORT)")
+    field(ZNAM, "Idle")
+    field(ONAM, "Reset")
 }
 
 ################################################################################
@@ -195,10 +290,21 @@ record(ai, "$(P)$(R)HeatsinkTemp")
     field(DESC, "Heatsink temperature")
     field(DTYP, "stream")
     field(EGU,  "deg C")
-    field(FLNK, "$(P)$(R)StatusMSB")
+    field(FLNK, "$(P)$(R)OutputPower")
     field(INP,  "@fastps.proto getTemperature $(PORT)")
     field(PREC, "2")
 }
+
+record(ai, "$(P)$(R)OutputPower")
+{
+    field(DESC, "Output power")
+    field(DTYP, "stream")
+    field(EGU,  "W")
+    field(FLNK, "$(P)$(R)SlewRateIRB")
+    field(INP,  "@fastps.proto getOutputPower $(PORT)")
+    field(PREC, "3")
+}
+
 
 record(mbbiDirect, "$(P)$(R)StatusMSB")
 {
@@ -207,6 +313,7 @@ record(mbbiDirect, "$(P)$(R)StatusMSB")
     field(FLNK, "$(P)$(R)StatusLSB")
     field(INP,  "@fastps.proto getStatusMSB $(PORT)")
 }
+
 
 record(mbbiDirect, "$(P)$(R)StatusLSB")
 {
@@ -352,6 +459,14 @@ record (stringin, "$(P)$(R)Version")
     field(DESC, "Version")
     field(DTYP, "stream")
     field(INP,  "@fastps.proto getVersion $(PORT)")
+    field(FLNK, "$(P)$(R)ModuleID")
+}
+
+record (stringin, "$(P)$(R)ModuleID")
+{
+    field(DESC, "Module serial ID")
+    field(DTYP, "stream")
+    field(INP,  "@fastps.proto getModuleID $(PORT)")
     field(FLNK, "$(P)$(R)_EnableInit")
 }
 
